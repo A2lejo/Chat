@@ -1,12 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LocationService } from '../services/location.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
-  constructor() {}
+  position: any;
 
+  constructor(private locationService: LocationService) { }
+
+  ngOnInit() {
+    this.getLocation();
+  }
+
+  async getLocation() {
+    this.position = await this.locationService.getCurrentPosition();
+    console.log('Position:', this.position);
+  }
 }
