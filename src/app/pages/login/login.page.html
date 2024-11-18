@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="credentialForm" (ngSubmit)="signIn()">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <div *ngIf="(email?.dirty || email?.touched) && email?.errors" class="error">
+      <span *ngIf="email?.errors?.['required']">Email is required</span>
+      <span *ngIf="email?.errors?.['email']">Enter a valid email</span>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <div *ngIf="(password?.dirty || password?.touched) && password?.errors" class="error">
+      <span *ngIf="password?.errors?.['required']">Password is required</span>
+      <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters long</span>
+    </div>
+
+    <ion-button expand="full" type="submit" [disabled]="!credentialForm.valid">Sign In</ion-button>
+    <ion-button expand="full" color="light" (click)="signUp()">Sign Up</ion-button>
+  </form>
+</ion-content>
